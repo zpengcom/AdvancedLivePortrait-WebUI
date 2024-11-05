@@ -58,11 +58,6 @@ class LivePortraitInferencer:
 
     def load_models(self,
                     progress=gr.Progress()):
-        def filter_stitcher(checkpoint, prefix):
-            filtered_checkpoint = {key.replace(prefix + "_module.", ""): value for key, value in checkpoint.items() if
-                                   key.startswith(prefix)}
-            return filtered_checkpoint
-
         self.download_if_no_models()
 
         total_models_num = 5
@@ -100,11 +95,12 @@ class LivePortraitInferencer:
 
         progress(4/total_models_num, desc="Loading Stitcher model...")
         stitcher_config = self.model_config["stitching_retargeting_module_params"]
-        self.stitching_retargeting_module = StitchingRetargetingNetwork(**stitcher_config.get('stitching'))
-        stitcher_model_path = os.path.join(self.model_dir, "stitching_retargeting_module.safetensors")
-        ckpt = safetensors.torch.load_file(stitcher_model_path)
-        self.stitching_retargeting_module.load_state_dict(filter_stitcher(ckpt, 'retarget_shoulder'))
-        self.stitching_retargeting_module.to(self.device).eval()
+        self.stitching_retargeting_module = StitchingRetargetingNetwork(**stitcher_config.get('stitching')).to(self.device)
+        self.stitching_retargeting_module = self.load_safe_tensor(
+            self.stitching_retargeting_module,
+            os.path.join(self.model_dir, "stitching_retargeting_module.safetensors"),
+            True
+        )
         self.stitching_retargeting_module = {"stitching": self.stitching_retargeting_module}
 
         if self.pipeline is None:
@@ -350,8 +346,16 @@ class LivePortraitInferencer:
                 download_model(model_path, model_url)
 
     @staticmethod
-    def load_safe_tensor(model, file_path):
-        model.load_state_dict(safetensors.torch.load_file(file_path))
+    def load_safe_tensor(model, file_path, is_stitcher=False):
+        def filter_stitcher(checkpoint, prefix):
+            filtered_checkpoint = {key.replace(prefix + "_module.", ""): value for key, value in checkpoint.items() if
+                                   key.startswith(prefix)}
+            return filtered_checkpoint
+
+        if is_stitcher:
+            model.load_state_dict(filter_stitcher(safetensors.torch.load_file(file_path), 'retarget_shoulder'))
+        else:
+            model.load_state_dict(safetensors.torch.load_file(file_path))
         model.eval()
         return model
 
