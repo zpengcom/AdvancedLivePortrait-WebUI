@@ -5,6 +5,7 @@ import os
 PROJECT_ROOT_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "..")
 MODELS_DIR = os.path.join(PROJECT_ROOT_DIR, "models")
 OUTPUTS_DIR = os.path.join(PROJECT_ROOT_DIR, "outputs")
+TEMP_DIR = os.path.join(OUTPUTS_DIR, "temp")
 EXP_OUTPUT_DIR = os.path.join(OUTPUTS_DIR, "exp_data")
 MODEL_CONFIG = os.path.join(PROJECT_ROOT_DIR, "modules", "config", "models.yaml")
 MODEL_PATHS = {
@@ -18,12 +19,26 @@ MODEL_PATHS = {
 MASK_TEMPLATES = os.path.join(PROJECT_ROOT_DIR, "modules", "utils", "resources", "mask_template.png")
 
 
+def get_auto_incremental_file_path(dir_path: str, extension: str, prefix: str = ""):
+    counter = 0
+    while True:
+        if prefix:
+            filename = f"{prefix}_{counter:05d}.{extension}"
+        else:
+            filename = f"{counter:05d}.{extension}"
+        full_path = os.path.join(dir_path, filename)
+        if not os.path.exists(full_path):
+            return full_path
+        counter += 1
+
+
 @functools.lru_cache
 def init_dirs():
     for dir_path in [
         MODELS_DIR,
         OUTPUTS_DIR,
-        EXP_OUTPUT_DIR
+        EXP_OUTPUT_DIR,
+        TEMP_DIR
     ]:
         os.makedirs(dir_path, exist_ok=True)
 
