@@ -17,13 +17,13 @@ class App:
             gr.Slider(label="Rotate Yaw", minimum=-20, maximum=20, step=0.5, value=0),
             gr.Slider(label="Rotate Roll", minimum=-20, maximum=20, step=0.5, value=0),
             gr.Slider(label="Blink", minimum=-20, maximum=20, step=0.5, value=0),
-            gr.Slider(label="Eyebrow", minimum=-10, maximum=15, step=0.5, value=0),
+            gr.Slider(label="Eyebrow", minimum=-20, maximum=20, step=0.5, value=0),
             gr.Slider(label="Wink", minimum=0, maximum=25, step=0.5, value=0),
-            gr.Slider(label="Pupil X", minimum=-15, maximum=15, step=0.5, value=0),
-            gr.Slider(label="Pupil Y", minimum=-15, maximum=15, step=0.5, value=0),
+            gr.Slider(label="Pupil X", minimum=-20, maximum=20, step=0.5, value=0),
+            gr.Slider(label="Pupil Y", minimum=-20, maximum=20, step=0.5, value=0),
             gr.Slider(label="AAA", minimum=-30, maximum=120, step=1, value=0),
-            gr.Slider(label="EEE", minimum=-20, maximum=15, step=0.2, value=0),
-            gr.Slider(label="WOO", minimum=-20, maximum=15, step=0.2, value=0),
+            gr.Slider(label="EEE", minimum=-20, maximum=20, step=0.2, value=0),
+            gr.Slider(label="WOO", minimum=-20, maximum=20, step=0.2, value=0),
             gr.Slider(label="Smile", minimum=-0.3, maximum=1.3, step=0.01, value=0),
             gr.Slider(label="Source Ratio", minimum=0, maximum=1, step=0.01, value=1),
             gr.Slider(label="Sample Ratio", minimum=-0.2, maximum=1.2, step=0.01, value=1),
@@ -40,9 +40,9 @@ class App:
             with gr.Row():
                 btn_gen = gr.Button("GENERATE", visible=False)
             with gr.Row():
-                with gr.Column(scale=7):
+                with gr.Column(scale=8):
                     img_out = gr.Image(label="Output Image")
-                with gr.Column(scale=3):
+                with gr.Column(scale=2):
                     expression_parameters = self.create_parameters()
                     with gr.Accordion("Opt in features", visible=False):
                         img_sample = gr.Image()
