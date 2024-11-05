@@ -1,3 +1,7 @@
+import os.path
+from typing import Optional
+from torch.hub import download_url_to_file
+from urllib.parse import urlparse
 import requests
 from tqdm import tqdm
 
@@ -11,33 +15,22 @@ MODELS_URL = {
 }
 
 
-def download_model(file_path, model_url):
-    print('Downloading model...')
-    response = requests.get(model_url, stream=True)
+def download_model(
+    file_path: str,
+    url: str,
+) -> Optional[str]:
+    if os.path.exists(file_path):
+        return None
     try:
-        if response.status_code == 200:
-            total_size = int(response.headers.get('content-length', 0))
-            block_size = 1024  # 1 Kibibyte
-
-            # tqdm will display a progress bar
-            with open(file_path, 'wb') as file, tqdm(
-                    desc='Downloading',
-                    total=total_size,
-                    unit='iB',
-                    unit_scale=True,
-                    unit_divisor=1024,
-            ) as bar:
-                for data in response.iter_content(block_size):
-                    bar.update(len(data))
-                    file.write(data)
+        print(f'{file_path} is not detected. Downloading model...')
+        download_url_to_file(url, file_path, progress=True)
 
     except requests.exceptions.RequestException as e:
         print(
-            f"Model Download has failed. Download manually from: {model_url}"
-            f"And place in {file_path}"
+            f"Model download has failed. Please download manually from: {url}\n"
+            f"and place it in {file_path}"
         )
-        raise
+        raise e
     except Exception as e:
-        print(f'An unexpected error occurred during model download')
-        raise
-
+        print('An unexpected error occurred during model download.')
+        raise e
