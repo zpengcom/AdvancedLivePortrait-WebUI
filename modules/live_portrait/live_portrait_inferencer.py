@@ -55,6 +55,11 @@ class LivePortraitInferencer:
         self.d_info = None
 
     def load_models(self):
+        def filter_stitcher(checkpoint, prefix):
+            filtered_checkpoint = {key.replace(prefix + "_module.", ""): value for key, value in checkpoint.items() if
+                                   key.startswith(prefix)}
+            return filtered_checkpoint
+
         self.download_if_no_models()
 
         appearance_feat_config = self.model_config["appearance_feature_extractor_params"]
@@ -84,11 +89,6 @@ class LivePortraitInferencer:
             self.spade_generator,
             os.path.join(self.model_dir, "spade_generator.safetensors")
         )
-
-        def filter_stitcher(checkpoint, prefix):
-            filtered_checkpoint = {key.replace(prefix + "_module.", ""): value for key, value in checkpoint.items() if
-                                   key.startswith(prefix)}
-            return filtered_checkpoint
 
         stitcher_config = self.model_config["stitching_retargeting_module_params"]
         self.stitching_retargeting_module = StitchingRetargetingNetwork(**stitcher_config.get('stitching'))
