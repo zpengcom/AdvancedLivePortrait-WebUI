@@ -529,9 +529,11 @@ class LivePortraitInferencer:
         return face_img
 
     def prepare_source(self, source_image, crop_factor, is_video=False, tracking=False):
-        print("Prepare source...")
-        #source_image_np = (source_image * 255).byte().numpy()
+        # source_image_np = (source_image * 255).byte().numpy()
         # img_rgb = source_image_np[0]
+        print("Prepare source...")
+        if len(source_image.shape) <= 3:
+            source_image = source_image[np.newaxis, ...]
 
         psi_list = []
         for img_rgb in source_image:
