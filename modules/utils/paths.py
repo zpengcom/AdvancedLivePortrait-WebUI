@@ -5,6 +5,7 @@ import os
 PROJECT_ROOT_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "..")
 MODELS_DIR = os.path.join(PROJECT_ROOT_DIR, "models")
 OUTPUTS_DIR = os.path.join(PROJECT_ROOT_DIR, "outputs")
+MODEL_CONFIGS = os.path.join(PROJECT_ROOT_DIR, "modules", "config", "models.yaml")
 
 
 @functools.lru_cache
