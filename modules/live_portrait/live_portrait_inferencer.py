@@ -200,13 +200,14 @@ class LivePortraitInferencer:
             crop_with_fullsize = cv2.warpAffine(crop_out, psi.crop_trans_m, get_rgb_size(psi.src_rgb), cv2.INTER_LINEAR)
             out = np.clip(psi.mask_ori * crop_with_fullsize + (1 - psi.mask_ori) * psi.src_rgb, 0, 255).astype(np.uint8)
 
-            out_img_path = get_auto_incremental_file_path(TEMP_DIR, "png")
+            cropped_img, out_img = Image.fromarray(crop_out), Image.fromarray(out)
+            temp_out_img_path, out_img_path = get_auto_incremental_file_path(TEMP_DIR, "png"), get_auto_incremental_file_path(OUTPUTS_DIR, "png")
 
-            img = Image.fromarray(crop_out)
-            img.save(out_img_path, compress_level=1, format="png")
+            cropped_img.save(temp_out_img_path, compress_level=1, format="png")
+            out_img.save(out_img_path, compress_level=1, format="png")
             new_editor_link.append(es)
 
-            return out # {"ui": {"images": results}, "result": (out_img, new_editor_link, es)}
+            return out
         except Exception as e:
             raise
 
