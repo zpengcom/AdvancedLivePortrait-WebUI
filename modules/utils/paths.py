@@ -11,7 +11,8 @@ MODEL_PATHS = {
     "motion_extractor": os.path.join(MODELS_DIR, "motion_extractor.safetensors"),
     "warping_module": os.path.join(MODELS_DIR, "warping_module.safetensors"),
     "spade_generator": os.path.join(MODELS_DIR, "spade_generator.safetensors"),
-    "stitching_retargeting_module": os.path.join(MODELS_DIR, "stitching_retargeting_module.safetensors")
+    "stitching_retargeting_module": os.path.join(MODELS_DIR, "stitching_retargeting_module.safetensors"),
+    "face_yolov8n": os.path.join(MODELS_DIR, "face_yolov8n.pt")
 }
 
 
