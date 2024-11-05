@@ -185,7 +185,7 @@ class LivePortraitInferencer:
             es.r = self.calc_fe(es.e, blink, eyebrow, wink, pupil_x, pupil_y, aaa, eee, woo, smile,
                                 rotate_pitch, rotate_yaw, rotate_roll)
 
-            if add_exp is not None:
+            if isinstance(add_exp, ExpressionSet):
                 es.add(add_exp)
 
             new_rotate = get_rotation_matrix(s_info['pitch'] + es.r[0], s_info['yaw'] + es.r[1],
