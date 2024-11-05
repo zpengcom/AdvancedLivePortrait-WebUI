@@ -7,10 +7,10 @@ from tqdm import tqdm
 
 MODELS_URL = {
     "appearance_feature_extractor": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/appearance_feature_extractor.safetensors",
-    "motion_extractor": "https://huggingface.co/Kijai/LivePortrait_safetensors/blob/main/motion_extractor.safetensors",
-    "warping_module": "https://huggingface.co/Kijai/LivePortrait_safetensors/tree/main/warping_module.safetensors",
-    "spade_generator ": "https://huggingface.co/Kijai/LivePortrait_safetensors/tree/main/spade_generator.safetensors ",
-    "stitching_retargeting_module ": "https://huggingface.co/Kijai/LivePortrait_safetensors/tree/main/stitching_retargeting_module.safetensors",
+    "motion_extractor": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/motion_extractor.safetensors",
+    "warping_module": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/warping_module.safetensors",
+    "spade_generator ": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/spade_generator.safetensors ",
+    "stitching_retargeting_module ": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/stitching_retargeting_module.safetensors",
     "face_yolov8n": "https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt"
 }
 
