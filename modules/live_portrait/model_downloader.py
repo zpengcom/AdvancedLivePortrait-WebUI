@@ -10,7 +10,7 @@ MODELS_URL = {
     "motion_extractor": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/motion_extractor.safetensors",
     "warping_module": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/warping_module.safetensors",
     "spade_generator": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/spade_generator.safetensors",
-    "stitching_retargeting_module ": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/stitching_retargeting_module.safetensors",
+    "stitching_retargeting_module": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/stitching_retargeting_module.safetensors",
     "face_yolov8n": "https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt"
 }
 
@@ -22,7 +22,7 @@ def download_model(
     if os.path.exists(file_path):
         return None
     try:
-        print(f'{file_path} is not detected. Downloading model...')
+        print(f'{os.path.normpath(file_path)} is not detected. Downloading model...')
         download_url_to_file(url, file_path, progress=True)
 
     except requests.exceptions.RequestException as e:
