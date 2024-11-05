@@ -17,6 +17,7 @@ MODEL_PATHS = {
     "face_yolov8n": os.path.join(MODELS_DIR, "face_yolov8n.pt")
 }
 MASK_TEMPLATES = os.path.join(PROJECT_ROOT_DIR, "modules", "utils", "resources", "mask_template.png")
+I18N_YAML_PATH = os.path.join(PROJECT_ROOT_DIR, "i18n", "translation.yaml")
 
 
 def get_auto_incremental_file_path(dir_path: str, extension: str, prefix: str = ""):
