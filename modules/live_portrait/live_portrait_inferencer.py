@@ -154,7 +154,7 @@ class LivePortraitInferencer:
                 new_editor_link = []
                 new_editor_link.append(self.psi)
             else:
-                return None, None
+                return None
 
             psi = self.psi
             s_info = psi.x_s_info
