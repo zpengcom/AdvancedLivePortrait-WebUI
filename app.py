@@ -48,6 +48,7 @@ class App:
                         img_out = gr.Image(label=_("Output Image"))
                     with gr.Column(scale=2):
                         expression_parameters = self.create_parameters()
+                        btn_openfolder = gr.Button('📂')
                         with gr.Accordion("Opt in features", visible=False):
                             img_sample = gr.Image()
                             img_motion_link = gr.Image()
@@ -63,11 +64,21 @@ class App:
                     outputs=img_out
                 )
 
+                btn_openfolder.click(
+                    fn=lambda: self.open_folder(self.args.output_dir), inputs=None, outputs=None
+                )
                 btn_gen.click(self.inferencer.edit_expression,
                               inputs=params + opt_in_features_params,
                               outputs=img_out)
 
             self.app.launch(inbrowser=True)
+
+    @staticmethod
+    def open_folder(folder_path: str):
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path, exist_ok=True)
+            print(f"The directory path {folder_path} has newly created.")
+        os.system(f"start {folder_path}")
 
 
 app = App()
