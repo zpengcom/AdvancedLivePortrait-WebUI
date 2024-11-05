@@ -5,13 +5,14 @@ from gradio_i18n import Translate, gettext as _
 from modules.live_portrait.live_portrait_inferencer import LivePortraitInferencer
 from modules.utils.paths import *
 from modules.utils.helper import str2bool
+from modules.utils.constants import *
 
 
 class App:
     def __init__(self,
                  args=None):
         self.args = args
-        self.app = gr.Blocks()
+        self.app = gr.Blocks(css=GRADIO_CSS)
         self.i18n = Translate(I18N_YAML_PATH)
         self.inferencer = LivePortraitInferencer()
 
@@ -40,6 +41,8 @@ class App:
     def launch(self):
         with self.app:
             with self.i18n:
+                gr.Markdown(REPO_MARKDOWN, elem_id="md_project")
+
                 with gr.Row():
                     with gr.Column():
                         img_ref = gr.Image(label=_("Reference Image"))
