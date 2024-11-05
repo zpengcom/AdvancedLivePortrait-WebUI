@@ -16,7 +16,7 @@ class App:
             gr.Slider(label="Rotate Pitch", minimum=-20, maximum=20, step=0.5, value=0),
             gr.Slider(label="Rotate Yaw", minimum=-20, maximum=20, step=0.5, value=0),
             gr.Slider(label="Rotate Roll", minimum=-20, maximum=20, step=0.5, value=0),
-            gr.Slider(label="Blink", minimum=-20, maximum=5, step=0.5, value=0),
+            gr.Slider(label="Blink", minimum=-20, maximum=20, step=0.5, value=0),
             gr.Slider(label="Eyebrow", minimum=-10, maximum=15, step=0.5, value=0),
             gr.Slider(label="Wink", minimum=0, maximum=25, step=0.5, value=0),
             gr.Slider(label="Pupil X", minimum=-15, maximum=15, step=0.5, value=0),
