@@ -24,7 +24,7 @@ class App:
             gr.Slider(label="AAA", minimum=-30, maximum=120, step=1, value=0),
             gr.Slider(label="EEE", minimum=-20, maximum=20, step=0.2, value=0),
             gr.Slider(label="WOO", minimum=-20, maximum=20, step=0.2, value=0),
-            gr.Slider(label="Smile", minimum=-0.3, maximum=1.3, step=0.01, value=0),
+            gr.Slider(label="Smile", minimum=-2.0, maximum=2.0, step=0.01, value=0),
             gr.Slider(label="Source Ratio", minimum=0, maximum=1, step=0.01, value=1),
             gr.Slider(label="Sample Ratio", minimum=-0.2, maximum=1.2, step=0.01, value=1),
             gr.Dropdown(label="Sample Parts",
