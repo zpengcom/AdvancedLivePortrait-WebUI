@@ -1,8 +1,10 @@
+import argparse
 import gradio as gr
 from gradio_i18n import Translate, gettext as _
 
 from modules.live_portrait.live_portrait_inferencer import LivePortraitInferencer
 from modules.utils.paths import *
+from modules.utils.helper import str2bool
 
 
 class App:
@@ -71,7 +73,15 @@ class App:
                               inputs=params + opt_in_features_params,
                               outputs=img_out)
 
-            self.app.launch(inbrowser=True)
+            gradio_launch_args = {
+                "inbrowser": self.args.inbrowser,
+                "share": self.args.share,
+                "server_name": self.args.server_name,
+                "server_port": self.args.server_port,
+                "root_path": self.args.root_path,
+                "auth": (self.args.username, self.args.password) if self.args.username and self.args.password else None,
+            }
+            self.app.queue().launch(**gradio_launch_args)
 
     @staticmethod
     def open_folder(folder_path: str):
@@ -81,8 +91,25 @@ class App:
         os.system(f"start {folder_path}")
 
 
-app = App()
-app.launch()
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--share', type=str2bool, default=False, nargs='?', const=True, help='Gradio share value')
+    parser.add_argument('--inbrowser', type=str2bool, default=True, nargs='?', const=True,
+                        help='Whether to automatically starts on the browser or not')
+    parser.add_argument('--server_name', type=str, default=None, help='Gradio server host')
+    parser.add_argument('--server_port', type=int, default=None, help='Gradio server port')
+    parser.add_argument('--root_path', type=str, default=None, help='Gradio root path')
+    parser.add_argument('--username', type=str, default=None, help='Gradio authentication username')
+    parser.add_argument('--password', type=str, default=None, help='Gradio authentication password')
+    parser.add_argument('--model_dir', type=str, default=MODELS_DIR,
+                        help='Directory path of the LivePortrait models')
+    parser.add_argument('--output_dir', type=str, default=OUTPUTS_DIR,
+                        help='Directory path of the outputs')
+    _args = parser.parse_args()
+
+    app = App(args=_args)
+    app.launch()
 
 
 

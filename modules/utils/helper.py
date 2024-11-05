@@ -9,6 +9,8 @@ import os.path as osp
 import cv2
 import torch
 import yaml
+import argparse
+import locale
 from rich.console import Console
 from collections import OrderedDict
 
@@ -126,6 +128,18 @@ def resize_to_limit(img, max_dim=1280, n=2):
 
 
 def load_yaml(file_path):
-    with open(file_path, 'r') as file:
+    encoding = locale.getpreferredencoding(False)
+    with open(file_path, 'r', encoding=encoding) as file:
         data = yaml.safe_load(file)
     return data
+
+
+def str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
