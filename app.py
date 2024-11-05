@@ -52,9 +52,8 @@ class App:
             params = expression_parameters + [img_ref]
             opt_in_features_params = [img_sample, img_motion_link, tb_exp]
 
-            changes_expressions = [param.change for param in params]
             gr.on(
-                triggers=changes_expressions,
+                triggers=[param.change for param in params],
                 fn=self.inferencer.edit_expression,
                 inputs=params + opt_in_features_params,
                 outputs=img_out
