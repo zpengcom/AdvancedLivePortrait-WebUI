@@ -138,7 +138,7 @@ class LivePortraitInferencer:
             rotate_yaw = -rotate_yaw
 
             new_editor_link = None
-            if motion_link is not None:
+            if isinstance(motion_link, np.ndarray) and motion_link:
                 self.psi = motion_link[0]
                 new_editor_link = motion_link.copy()
             elif src_image is not None:
@@ -160,7 +160,7 @@ class LivePortraitInferencer:
 
             es = ExpressionSet()
 
-            if sample_image is not None:
+            if isinstance(sample_image, np.ndarray) and sample_image:
                 if id(self.sample_image) != id(sample_image):
                     self.sample_image = sample_image
                     d_image_np = (sample_image * 255).byte().numpy()
@@ -200,14 +200,13 @@ class LivePortraitInferencer:
             crop_with_fullsize = cv2.warpAffine(crop_out, psi.crop_trans_m, get_rgb_size(psi.src_rgb), cv2.INTER_LINEAR)
             out = np.clip(psi.mask_ori * crop_with_fullsize + (1 - psi.mask_ori) * psi.src_rgb, 0, 255).astype(np.uint8)
 
-            out_img = pil2tensor(out)
             out_img_path = get_auto_incremental_file_path(TEMP_DIR, "png")
 
             img = Image.fromarray(crop_out)
-            img.save(out_img_path, compress_level=1)
+            img.save(out_img_path, compress_level=1, format="png")
             new_editor_link.append(es)
 
-            return out_img # {"ui": {"images": results}, "result": (out_img, new_editor_link, es)}
+            return out # {"ui": {"images": results}, "result": (out_img, new_editor_link, es)}
         except Exception as e:
             raise
 
