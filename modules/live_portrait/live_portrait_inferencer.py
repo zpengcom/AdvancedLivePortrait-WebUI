@@ -113,7 +113,7 @@ class LivePortraitInferencer:
                 self.stitching_retargeting_module
             )
 
-        self.detect_model = YOLO(MODEL_PATHS["face_yolov8n"])
+        self.detect_model = YOLO(MODEL_PATHS["face_yolov8n"]).to(self.device)
 
     def edit_expression(self,
                         rotate_pitch=0,
@@ -405,7 +405,7 @@ class LivePortraitInferencer:
         return cmd_list, total_length
 
     def get_face_bboxes(self, image_rgb):
-        pred = self.detect_model(image_rgb, conf=0.7, device="")
+        pred = self.detect_model(image_rgb, conf=0.7, device=self.device)
         return pred[0].boxes.xyxy.cpu().numpy()
 
     def detect_face(self, image_rgb, crop_factor, sort = True):
