@@ -56,7 +56,8 @@ class LivePortraitInferencer:
         self.psi_list = None
         self.d_info = None
 
-    def load_models(self):
+    def load_models(self,
+                    progress=gr.Progress()):
         def filter_stitcher(checkpoint, prefix):
             filtered_checkpoint = {key.replace(prefix + "_module.", ""): value for key, value in checkpoint.items() if
                                    key.startswith(prefix)}
@@ -64,6 +65,8 @@ class LivePortraitInferencer:
 
         self.download_if_no_models()
 
+        total_models_num = 5
+        progress(0/total_models_num, desc="Loading Appearance Feature Extractor model...")
         appearance_feat_config = self.model_config["appearance_feature_extractor_params"]
         self.appearance_feature_extractor = AppearanceFeatureExtractor(**appearance_feat_config).to(self.device)
         self.appearance_feature_extractor = self.load_safe_tensor(
@@ -71,6 +74,7 @@ class LivePortraitInferencer:
             os.path.join(self.model_dir, "appearance_feature_extractor.safetensors")
         )
 
+        progress(1/total_models_num, desc="Loading Motion Extractor model...")
         motion_ext_config = self.model_config["motion_extractor_params"]
         self.motion_extractor = MotionExtractor(**motion_ext_config).to(self.device)
         self.motion_extractor = self.load_safe_tensor(
@@ -78,6 +82,7 @@ class LivePortraitInferencer:
             os.path.join(self.model_dir, "motion_extractor.safetensors")
         )
 
+        progress(2/total_models_num, desc="Loading Warping Module model...")
         warping_module_config = self.model_config["warping_module_params"]
         self.warping_module = WarpingNetwork(**warping_module_config).to(self.device)
         self.warping_module = self.load_safe_tensor(
@@ -85,6 +90,7 @@ class LivePortraitInferencer:
             os.path.join(self.model_dir, "warping_module.safetensors")
         )
 
+        progress(3/total_models_num, desc="Loading Spade generator model...")
         spaded_decoder_config = self.model_config["spade_generator_params"]
         self.spade_generator = SPADEDecoder(**spaded_decoder_config).to(self.device)
         self.spade_generator = self.load_safe_tensor(
@@ -92,6 +98,7 @@ class LivePortraitInferencer:
             os.path.join(self.model_dir, "spade_generator.safetensors")
         )
 
+        progress(4/total_models_num, desc="Loading Stitcher model...")
         stitcher_config = self.model_config["stitching_retargeting_module_params"]
         self.stitching_retargeting_module = StitchingRetargetingNetwork(**stitcher_config.get('stitching'))
         stitcher_model_path = os.path.join(self.model_dir, "stitching_retargeting_module.safetensors")
