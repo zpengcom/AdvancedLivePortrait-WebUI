@@ -1,3 +1,4 @@
+import logging
 import os
 import sys
 import numpy as np
@@ -9,6 +10,7 @@ import dill
 from ultralytics import YOLO
 import safetensors.torch
 import gradio as gr
+from ultralytics.utils import LOGGER as ultralytics_logger
 
 from modules.utils.paths import *
 from modules.utils.image_helper import *
@@ -396,10 +398,13 @@ class LivePortraitInferencer:
         return pred[0].boxes.xyxy.cpu().numpy()
 
     def detect_face(self, image_rgb, crop_factor, sort = True):
+        original_logger_level = ultralytics_logger.level
+        ultralytics_logger.setLevel(logging.CRITICAL + 1)
+
         bboxes = self.get_face_bboxes(image_rgb)
         w, h = get_rgb_size(image_rgb)
 
-        print(f"w, h:{w, h}")
+        # print(f"w, h:{w, h}")
 
         cx = w / 2
         min_diff = w
@@ -410,7 +415,7 @@ class LivePortraitInferencer:
             diff = abs(cx - (x1 + bbox_w / 2))
             if diff < min_diff:
                 best_box = [x1, y1, x2, y2]
-                print(f"diff, min_diff, best_box:{diff, min_diff, best_box}")
+                # print(f"diff, min_diff, best_box:{diff, min_diff, best_box}")
                 min_diff = diff
 
         if best_box == None:
@@ -467,6 +472,7 @@ class LivePortraitInferencer:
             new_x2 -= over_min
             new_y2 -= over_min
 
+        ultralytics_logger.setLevel(original_logger_level)
         return [int(new_x1), int(new_y1), int(new_x2), int(new_y2)]
 
     @staticmethod
@@ -531,7 +537,7 @@ class LivePortraitInferencer:
     def prepare_source(self, source_image, crop_factor, is_video=False, tracking=False):
         # source_image_np = (source_image * 255).byte().numpy()
         # img_rgb = source_image_np[0]
-        print("Prepare source...")
+        # print("Prepare source...")
         if len(source_image.shape) <= 3:
             source_image = source_image[np.newaxis, ...]
 
