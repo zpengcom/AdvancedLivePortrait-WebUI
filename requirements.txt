@@ -13,3 +13,4 @@ ultralytics
 tyro
 dill
 gradio
+gradio-i18n
