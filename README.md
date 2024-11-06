@@ -1,3 +1,15 @@
+---
+title: AdvancedLivePortrait-WebUI
+emoji: 🚀
+colorFrom: red
+colorTo: yellow
+sdk: gradio
+sdk_version: 5.5.0
+app_file: app.py
+pinned: true
+license: apache-2.0
+---
+
 # AdvancedLivePortrait-WebUI
 
 Dedicated gradio based WebUI for [ComfyUI-AdvancedLivePortrait](https://github.com/PowerHouseMan/ComfyUI-AdvancedLivePortrait). 
