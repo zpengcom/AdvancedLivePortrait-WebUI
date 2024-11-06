@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python: ["3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - name: Clean up space for action
@@ -27,9 +27,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-
-      - name: Install git and ffmpeg
-        run: sudo apt-get update && sudo apt-get install -y git ffmpeg
 
       - name: Install dependencies
         run: pip install -r requirements.txt pytest
