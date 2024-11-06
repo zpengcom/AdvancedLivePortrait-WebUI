@@ -1,5 +1,4 @@
 if (-Not (Test-Path -Path "$PSScriptRoot\venv\Scripts")) {
-    Write-Output "Creating venv..."
     & .\install.ps1
 }
 
