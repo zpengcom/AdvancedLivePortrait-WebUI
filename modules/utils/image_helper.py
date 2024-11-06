@@ -56,3 +56,12 @@ def calc_crop_limit(center, img_size, crop_size):
 def save_image(numpy_array: np.ndarray, output_path: str):
     out = Image.fromarray(numpy_array)
     out.save(output_path, compress_level=1, format="png")
+
+
+def image_path_to_array(image_path: str) -> np.ndarray:
+    image = Image.open(image_path)
+    image_array = np.array(image)
+    if len(image_array.shape) <= 3:
+        image_array = image_array[np.newaxis, ...]
+
+    return image_array

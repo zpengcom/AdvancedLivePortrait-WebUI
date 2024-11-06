@@ -550,6 +550,9 @@ class LivePortraitInferencer:
         # source_image_np = (source_image * 255).byte().numpy()
         # img_rgb = source_image_np[0]
         # print("Prepare source...")
+        if isinstance(source_image, str):
+            source_image = image_path_to_array(source_image)
+
         if len(source_image.shape) <= 3:
             source_image = source_image[np.newaxis, ...]
 
