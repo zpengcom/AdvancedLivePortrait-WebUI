@@ -1,4 +1,4 @@
-# Torch is automatically installed with following dependencies
+# Torch will be automatically installed with following dependencies
 
 numpy>=1.26.4
 opencv-python-headless
