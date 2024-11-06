@@ -51,10 +51,10 @@ class App:
                         img_ref = gr.Image(label=_("Reference Image"))
                 with gr.Row():
                     btn_gen = gr.Button("GENERATE", visible=False)
-                with gr.Row():
-                    with gr.Column(scale=8):
+                with gr.Row(equal_height=True):
+                    with gr.Column(scale=9):
                         img_out = gr.Image(label=_("Output Image"))
-                    with gr.Column(scale=2):
+                    with gr.Column(scale=1):
                         expression_parameters = self.create_parameters()
                         btn_openfolder = gr.Button('📂')
                         with gr.Accordion("Opt in features", visible=False):
