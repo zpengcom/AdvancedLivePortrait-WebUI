@@ -7,10 +7,10 @@ RUN apt-get update && \
 
 WORKDIR /AdvancedLivePortrait-WebUI
 
-# Edit to `requirements-cpu.txt` if you're not using Nvidia GPU
+# Edit requirements-cpu.txt if you're not using Nvidia GPU
 COPY requirements.txt .
 
-# Edit to `requirements-cpu.txt` if you're not using Nvidia GPU
+# Edit requirements-cpu.txt if you're not using Nvidia GPU
 RUN python3 -m venv venv && \
     . venv/bin/activate && \
     pip install --no-cache-dir -r requirements.txt
