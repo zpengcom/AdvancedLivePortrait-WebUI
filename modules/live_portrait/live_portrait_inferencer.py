@@ -335,7 +335,9 @@ class LivePortraitInferencer:
         out_imgs = torch.cat([pil2tensor(img_rgb) for img_rgb in out_list])
         return out_imgs
 
-    def download_if_no_models(self):
+    def download_if_no_models(self,
+                              progress=gr.Progress()):
+        progress(0, desc="Downloading models...")
         for model_name, model_url in MODELS_URL.items():
             if model_url.endswith(".pt"):
                 model_name += ".pt"
