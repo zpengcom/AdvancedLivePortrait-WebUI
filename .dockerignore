@@ -6,3 +6,6 @@
 **/.idea
 **/.git
 **/.github
+
+*.png
+*.jpg
