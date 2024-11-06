@@ -5,6 +5,11 @@ Dedicated gradio based WebUI for [ComfyUI-AdvancedLivePortrait](https://github.c
 
 https://github.com/user-attachments/assets/cce42397-e898-4efb-9de8-735e050a10ce
 
+## Notebook
+You can try it in Colab 
+- [![colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jhj0517/AdvancedLivePortrait-WebUI/blob/master/notebooks/advanced_live_portrait_webui.ipynb)
+
+
 # Installation And Running
 ### Prerequisite
 1. `3.9` <= `python` <= `3.12` : https://www.python.org/downloads/release/python-3110/
