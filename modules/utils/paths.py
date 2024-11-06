@@ -17,6 +17,14 @@ MODEL_PATHS = {
     "stitching_retargeting_module": os.path.join(MODELS_DIR, "stitching_retargeting_module.safetensors"),
     "face_yolov8n": os.path.join(MODELS_DIR, "face_yolov8n.pt")
 }
+MODEL_ANIMAL_PATHS = {
+    "appearance_feature_extractor": os.path.join(MODELS_ANIMAL_DIR, "appearance_feature_extractor.safetensors"),
+    "motion_extractor": os.path.join(MODELS_ANIMAL_DIR, "motion_extractor.safetensors"),
+    "warping_module": os.path.join(MODELS_ANIMAL_DIR, "warping_module.safetensors"),
+    "spade_generator": os.path.join(MODELS_ANIMAL_DIR, "spade_generator.safetensors"),
+    "stitching_retargeting_module": os.path.join(MODELS_ANIMAL_DIR, "stitching_retargeting_module.safetensors"),
+    "face_yolov8n": os.path.join(MODELS_DIR, "face_yolov8n.pt")
+}
 MASK_TEMPLATES = os.path.join(PROJECT_ROOT_DIR, "modules", "utils", "resources", "mask_template.png")
 I18N_YAML_PATH = os.path.join(PROJECT_ROOT_DIR, "i18n", "translation.yaml")
 
