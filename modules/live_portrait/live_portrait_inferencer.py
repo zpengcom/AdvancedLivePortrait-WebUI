@@ -201,15 +201,15 @@ class LivePortraitInferencer:
                     self.d_info['exp'][0, 5, 1] = 0
 
                 # "OnlyExpression", "OnlyRotation", "OnlyMouth", "OnlyEyes", "All"
-                if sample_parts == "OnlyExpression" or sample_parts == "All":
+                if sample_parts == SamplePart.ONLY_EXPRESSION.value or sample_parts == SamplePart.ONLY_EXPRESSION.ALL.value:
                     es.e += self.d_info['exp'] * sample_ratio
-                if sample_parts == "OnlyRotation" or sample_parts == "All":
+                if sample_parts == SamplePart.ONLY_ROTATION.value or sample_parts == SamplePart.ONLY_ROTATION.ALL.value:
                     rotate_pitch += self.d_info['pitch'] * sample_ratio
                     rotate_yaw += self.d_info['yaw'] * sample_ratio
                     rotate_roll += self.d_info['roll'] * sample_ratio
-                elif sample_parts == "OnlyMouth":
+                elif sample_parts == SamplePart.ONLY_MOUTH.value:
                     self.retargeting(es.e, self.d_info['exp'], sample_ratio, (14, 17, 19, 20))
-                elif sample_parts == "OnlyEyes":
+                elif sample_parts == SamplePart.ONLY_EYES.value:
                     self.retargeting(es.e, self.d_info['exp'], sample_ratio, (1, 2, 11, 13, 15, 16))
 
             es.r = self.calc_fe(es.e, blink, eyebrow, wink, pupil_x, pupil_y, aaa, eee, woo, smile,
