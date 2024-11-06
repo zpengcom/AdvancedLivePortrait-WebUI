@@ -46,7 +46,7 @@ docker compose -f docker/docker-compose.yaml up
 
 Update the [`docker-compose.yaml`](https://github.com/jhj0517/AdvancedLivePortrait-WebUI/blob/master/docker/docker-compose.yaml) to match your environment if you're not using an Nvidia GPU.
 
-## Citation and Thanks
+## ❤️ Citation and Thanks
 1. LivePortrait paper comes from
 ```bibtex
 @article{guo2024liveportrait,
