@@ -4,6 +4,7 @@ import os
 
 PROJECT_ROOT_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), "..", "..")
 MODELS_DIR = os.path.join(PROJECT_ROOT_DIR, "models")
+MODELS_ANIMAL_DIR = os.path.join(MODELS_DIR, "animal")
 OUTPUTS_DIR = os.path.join(PROJECT_ROOT_DIR, "outputs")
 TEMP_DIR = os.path.join(OUTPUTS_DIR, "temp")
 EXP_OUTPUT_DIR = os.path.join(OUTPUTS_DIR, "exp_data")
@@ -37,6 +38,7 @@ def get_auto_incremental_file_path(dir_path: str, extension: str, prefix: str = 
 def init_dirs():
     for dir_path in [
         MODELS_DIR,
+        MODELS_ANIMAL_DIR,
         OUTPUTS_DIR,
         EXP_OUTPUT_DIR,
         TEMP_DIR
