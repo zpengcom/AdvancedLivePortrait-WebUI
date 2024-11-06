@@ -14,7 +14,10 @@ class App:
         self.args = args
         self.app = gr.Blocks(css=GRADIO_CSS)
         self.i18n = Translate(I18N_YAML_PATH)
-        self.inferencer = LivePortraitInferencer()
+        self.inferencer = LivePortraitInferencer(
+            model_dir=args.model_dir if args else MODELS_DIR,
+            output_dir=args.output_dir if args else OUTPUTS_DIR
+        )
 
     @staticmethod
     def create_parameters():
