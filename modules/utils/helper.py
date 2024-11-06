@@ -11,6 +11,8 @@ import torch
 import yaml
 import argparse
 import locale
+import numpy as np
+from PIL import Image
 from rich.console import Console
 from collections import OrderedDict
 
@@ -143,3 +145,8 @@ def str2bool(v):
         return False
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
+
+
+def save_image(numpy_array: np.ndarray, output_path: str):
+    out = Image.fromarray(numpy_array)
+    out.save(output_path, compress_level=1, format="png")
