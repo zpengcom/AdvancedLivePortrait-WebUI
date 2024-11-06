@@ -7,6 +7,14 @@ class ModelType(Enum):
     ANIMAL = _("Animal")
 
 
+class SamplePart(Enum):
+    ONLY_EXPRESSION = _("OnlyExpression")
+    ONLY_ROTATION = _("OnlyRotation")
+    ONLY_MOUTH = _("OnlyMouth")
+    ONLY_EYES = _("OnlyEyes")
+    ALL = _("All")
+
+
 REPO_MARKDOWN = """
 ## [AdvancedLivePortrait-WebUI](https://github.com/jhj0517/AdvancedLivePortrait-WebUI/tree/master)
 """

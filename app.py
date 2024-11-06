@@ -39,7 +39,7 @@ class App:
             gr.Slider(label=_("Source Ratio"), minimum=0, maximum=1, step=0.01, value=1),
             gr.Slider(label=_("Sample Ratio"), minimum=-0.2, maximum=1.2, step=0.01, value=1),
             gr.Dropdown(label=_("Sample Parts"),
-                        choices=["OnlyExpression", "OnlyRotation", "OnlyMouth", "OnlyEyes", "All"], value="All"),
+                        choices=[part.value for part in SamplePart], value=SamplePart.ALL.value),
             gr.Slider(label=_("Crop Factor"), minimum=1.5, maximum=2.5, step=0.1, value=1.7)
         ]
 
