@@ -11,6 +11,7 @@ from gradio_i18n import Translate, gettext as _
 from ultralytics.utils import LOGGER as ultralytics_logger
 from enum import Enum
 from typing import Union
+import spaces
 
 from modules.utils.paths import *
 from modules.utils.image_helper import *
@@ -58,6 +59,7 @@ class LivePortraitInferencer:
         self.psi_list = None
         self.d_info = None
 
+    @spaces.GPU
     def load_models(self,
                     model_type: str = ModelType.HUMAN.value,
                     progress=gr.Progress()):
@@ -132,6 +134,7 @@ class LivePortraitInferencer:
         det_model_name = "yolo_v5s_animal_det" if model_type == ModelType.ANIMAL else "face_yolov8n"
         self.detect_model = YOLO(MODEL_PATHS[det_model_name]).to(self.device)
 
+    @spaces.GPU
     def edit_expression(self,
                         model_type: str = ModelType.HUMAN.value,
                         rotate_pitch=0,
@@ -240,6 +243,7 @@ class LivePortraitInferencer:
         except Exception as e:
             raise
 
+    @spaces.GPU
     def create_video(self,
                      retargeting_eyes,
                      retargeting_mouth,
@@ -385,6 +389,7 @@ class LivePortraitInferencer:
                 download_model(model_path, model_url)
 
     @staticmethod
+    @spaces.GPU
     def load_safe_tensor(model, file_path, is_stitcher=False):
         def filter_stitcher(checkpoint, prefix):
             filtered_checkpoint = {key.replace(prefix + "_module.", ""): value for key, value in checkpoint.items() if
@@ -399,6 +404,7 @@ class LivePortraitInferencer:
         return model
 
     @staticmethod
+    @spaces.GPU
     def get_device():
         if torch.cuda.is_available():
             return "cuda"
@@ -443,6 +449,7 @@ class LivePortraitInferencer:
 
         return cmd_list, total_length
 
+    @spaces.GPU
     def get_face_bboxes(self, image_rgb):
         pred = self.detect_model(image_rgb, conf=0.7, device=self.device)
         return pred[0].boxes.xyxy.cpu().numpy()
@@ -551,6 +558,7 @@ class LivePortraitInferencer:
                                         cv2.INTER_LINEAR)
         return new_img
 
+    @spaces.GPU
     def prepare_src_image(self, img):
         h, w = img.shape[:2]
         input_shape = [256,256]
