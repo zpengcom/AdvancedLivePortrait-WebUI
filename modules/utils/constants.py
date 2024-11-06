@@ -27,4 +27,8 @@ GRADIO_CSS = """
 #md_project a:hover {
   text-decoration: underline;
 }
+
+#blink_slider .md.svelte-7ddecg.chatbot.prose {
+    font-size: 0.7em; 
+}
 """
