@@ -71,7 +71,9 @@ class App:
                     triggers=[param.change for param in params],
                     fn=self.inferencer.edit_expression,
                     inputs=params + opt_in_features_params,
-                    outputs=img_out
+                    outputs=img_out,
+                    show_progress="minimal",
+                    queue=True
                 )
 
                 btn_openfolder.click(
@@ -90,7 +92,9 @@ class App:
                 "root_path": self.args.root_path,
                 "auth": (self.args.username, self.args.password) if self.args.username and self.args.password else None,
             }
-            self.app.queue().launch(**gradio_launch_args)
+            self.app.queue(
+                default_concurrency_limit=1
+            ).launch(**gradio_launch_args)
 
     @staticmethod
     def open_folder(folder_path: str):
