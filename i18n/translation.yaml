@@ -23,6 +23,7 @@ en: # English
   OnlyMouth: OnlyMouth
   OnlyEyes: OnlyEyes
   All: All
+  Value above 5 may appear distorted: Value above 5 may appear distorted
 
 ko: # Korean
   Language: 언어
@@ -49,6 +50,7 @@ ko: # Korean
   OnlyMouth: 입만
   OnlyEyes: 눈만
   All: 전부
+  Value above 5 may appear distorted: 5 이상은 왜곡돼 보일 수 있습니다.
 
 ja: # Japanese
   Language: 言語
@@ -75,6 +77,7 @@ ja: # Japanese
   OnlyMouth: OnlyMouth
   OnlyEyes: OnlyEyes
   All: All
+  Value above 5 may appear distorted: Value above 5 may appear distorted
 
 es: # Spanish
   Language: Idioma
@@ -101,6 +104,7 @@ es: # Spanish
   OnlyMouth: OnlyMouth
   OnlyEyes: OnlyEyes
   All: All
+  Value above 5 may appear distorted: Value above 5 may appear distorted
 
 fr: # French
   Language: Langue
@@ -127,6 +131,7 @@ fr: # French
   OnlyMouth: OnlyMouth
   OnlyEyes: OnlyEyes
   All: All
+  Value above 5 may appear distorted: Value above 5 may appear distorted
 
 de: # German
   Language: Sprache
@@ -153,6 +158,7 @@ de: # German
   OnlyMouth: OnlyMouth
   OnlyEyes: OnlyEyes
   All: All
+  Value above 5 may appear distorted: Value above 5 may appear distorted
 
 zh: # Chinese
   Language: 语言
@@ -179,6 +185,7 @@ zh: # Chinese
   OnlyMouth: OnlyMouth
   OnlyEyes: OnlyEyes
   All: All
+  Value above 5 may appear distorted: Value above 5 may appear distorted
 
 uk: # Ukrainian
   Language: Мова
@@ -205,6 +212,7 @@ uk: # Ukrainian
   OnlyMouth: OnlyMouth
   OnlyEyes: OnlyEyes
   All: All
+  Value above 5 may appear distorted: Value above 5 may appear distorted
 
 ru: # Russian
   Language: Язык
@@ -231,6 +239,7 @@ ru: # Russian
   OnlyMouth: OnlyMouth
   OnlyEyes: OnlyEyes
   All: All
+  Value above 5 may appear distorted: Value above 5 may appear distorted
 
 tr: # Turkish
   Language: Dil
@@ -257,3 +266,4 @@ tr: # Turkish
   OnlyMouth: OnlyMouth
   OnlyEyes: OnlyEyes
   All: All
+  Value above 5 may appear distorted: Value above 5 may appear distorted
