@@ -3,6 +3,7 @@
 **/outputs/
 **/models/
 
+**/.pytest_cache
 **/.idea
 **/.git
 **/.github
