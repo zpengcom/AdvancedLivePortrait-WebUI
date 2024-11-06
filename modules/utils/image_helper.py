@@ -51,3 +51,8 @@ def calc_crop_limit(center, img_size, crop_size):
         pos = pos2 - crop_size
 
     return pos, pos2, crop_size
+
+
+def save_image(numpy_array: np.ndarray, output_path: str):
+    out = Image.fromarray(numpy_array)
+    out.save(output_path, compress_level=1, format="png")

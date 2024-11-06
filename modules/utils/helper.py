@@ -145,8 +145,3 @@ def str2bool(v):
         return False
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
-
-
-def save_image(numpy_array: np.ndarray, output_path: str):
-    out = Image.fromarray(numpy_array)
-    out.save(output_path, compress_level=1, format="png")
