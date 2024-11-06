@@ -14,6 +14,16 @@ MODELS_URL = {
     "face_yolov8n": "https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt"
 }
 
+MODELS_ANIMAL_URL = {
+    "appearance_feature_extractor": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/animal/appearance_feature_extractor.safetensors",
+    "motion_extractor": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/animal/motion_extractor.safetensors",
+    "warping_module": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/animal/warping_module.safetensors",
+    "spade_generator": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/animal/spade_generator.safetensors",
+    "stitching_retargeting_module": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/animal/stitching_retargeting_module.safetensors",
+    "face_yolov8n": "https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt"
+}
+
+
 
 def download_model(
     file_path: str,
