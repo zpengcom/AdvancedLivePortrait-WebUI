@@ -1,4 +1,5 @@
 import logging
+import os
 import cv2
 import time
 import copy
@@ -6,7 +7,10 @@ import dill
 from ultralytics import YOLO
 import safetensors.torch
 import gradio as gr
+from gradio_i18n import Translate, gettext as _
 from ultralytics.utils import LOGGER as ultralytics_logger
+from enum import Enum
+from typing import Union
 
 from modules.utils.paths import *
 from modules.utils.image_helper import *
@@ -14,6 +18,7 @@ from modules.live_portrait.model_downloader import *
 from modules.live_portrait.live_portrait_wrapper import LivePortraitWrapper
 from modules.utils.camera import get_rotation_matrix
 from modules.utils.helper import load_yaml
+from modules.utils.constants import *
 from modules.config.inference_config import InferenceConfig
 from modules.live_portrait.spade_generator import SPADEDecoder
 from modules.live_portrait.warping_network import WarpingNetwork
@@ -27,6 +32,7 @@ class LivePortraitInferencer:
                  model_dir: str = MODELS_DIR,
                  output_dir: str = OUTPUTS_DIR):
         self.model_dir = model_dir
+        os.makedirs(os.path.join(self.model_dir, "animal"), exist_ok=True)
         self.output_dir = output_dir
         self.model_config = load_yaml(MODEL_CONFIG)["model_params"]
 
@@ -38,6 +44,7 @@ class LivePortraitInferencer:
         self.pipeline = None
         self.detect_model = None
         self.device = self.get_device()
+        self.model_type = ModelType.HUMAN.value
 
         self.mask_img = None
         self.temp_img_idx = 0
@@ -52,8 +59,22 @@ class LivePortraitInferencer:
         self.d_info = None
 
     def load_models(self,
+                    model_type: str = ModelType.HUMAN.value,
                     progress=gr.Progress()):
-        self.download_if_no_models()
+        if isinstance(model_type, ModelType):
+            model_type = model_type.value
+        if model_type not in [mode.value for mode in ModelType]:
+            model_type = ModelType.HUMAN.value
+
+        self.model_type = model_type
+        if model_type == ModelType.ANIMAL.value:
+            model_dir = os.path.join(self.model_dir, "animal")
+        else:
+            model_dir = self.model_dir
+
+        self.download_if_no_models(
+            model_type=model_type
+        )
 
         total_models_num = 5
         progress(0/total_models_num, desc="Loading Appearance Feature Extractor model...")
@@ -61,7 +82,7 @@ class LivePortraitInferencer:
         self.appearance_feature_extractor = AppearanceFeatureExtractor(**appearance_feat_config).to(self.device)
         self.appearance_feature_extractor = self.load_safe_tensor(
             self.appearance_feature_extractor,
-            os.path.join(self.model_dir, "appearance_feature_extractor.safetensors")
+            os.path.join(model_dir, "appearance_feature_extractor.safetensors")
         )
 
         progress(1/total_models_num, desc="Loading Motion Extractor model...")
@@ -69,7 +90,7 @@ class LivePortraitInferencer:
         self.motion_extractor = MotionExtractor(**motion_ext_config).to(self.device)
         self.motion_extractor = self.load_safe_tensor(
             self.motion_extractor,
-            os.path.join(self.model_dir, "motion_extractor.safetensors")
+            os.path.join(model_dir, "motion_extractor.safetensors")
         )
 
         progress(2/total_models_num, desc="Loading Warping Module model...")
@@ -77,7 +98,7 @@ class LivePortraitInferencer:
         self.warping_module = WarpingNetwork(**warping_module_config).to(self.device)
         self.warping_module = self.load_safe_tensor(
             self.warping_module,
-            os.path.join(self.model_dir, "warping_module.safetensors")
+            os.path.join(model_dir, "warping_module.safetensors")
         )
 
         progress(3/total_models_num, desc="Loading Spade generator model...")
@@ -85,7 +106,7 @@ class LivePortraitInferencer:
         self.spade_generator = SPADEDecoder(**spaded_decoder_config).to(self.device)
         self.spade_generator = self.load_safe_tensor(
             self.spade_generator,
-            os.path.join(self.model_dir, "spade_generator.safetensors")
+            os.path.join(model_dir, "spade_generator.safetensors")
         )
 
         progress(4/total_models_num, desc="Loading Stitcher model...")
@@ -93,7 +114,7 @@ class LivePortraitInferencer:
         self.stitching_retargeting_module = StitchingRetargetingNetwork(**stitcher_config.get('stitching')).to(self.device)
         self.stitching_retargeting_module = self.load_safe_tensor(
             self.stitching_retargeting_module,
-            os.path.join(self.model_dir, "stitching_retargeting_module.safetensors"),
+            os.path.join(model_dir, "stitching_retargeting_module.safetensors"),
             True
         )
         self.stitching_retargeting_module = {"stitching": self.stitching_retargeting_module}
@@ -111,6 +132,7 @@ class LivePortraitInferencer:
         self.detect_model = YOLO(MODEL_PATHS["face_yolov8n"]).to(self.device)
 
     def edit_expression(self,
+                        model_type: str = ModelType.HUMAN.value,
                         rotate_pitch=0,
                         rotate_yaw=0,
                         rotate_roll=0,
@@ -131,8 +153,15 @@ class LivePortraitInferencer:
                         sample_image=None,
                         motion_link=None,
                         add_exp=None):
-        if self.pipeline is None:
-            self.load_models()
+        if isinstance(model_type, ModelType):
+            model_type = model_type.value
+        if model_type not in [mode.value for mode in ModelType]:
+            model_type = ModelType.HUMAN
+
+        if self.pipeline is None or model_type != self.model_type:
+            self.load_models(
+                model_type=model_type
+            )
 
         try:
             rotate_yaw = -rotate_yaw
@@ -330,14 +359,27 @@ class LivePortraitInferencer:
         return out_imgs
 
     def download_if_no_models(self,
-                              progress=gr.Progress()):
+                              model_type: str = ModelType.HUMAN.value,
+                              progress=gr.Progress(), ):
         progress(0, desc="Downloading models...")
-        for model_name, model_url in MODELS_URL.items():
+
+        if isinstance(model_type, ModelType):
+            model_type = model_type.value
+        if model_type == ModelType.ANIMAL.value:
+            models_urls_dic = MODELS_ANIMAL_URL
+            model_dir = os.path.join(self.model_dir, "animal")
+        else:
+            models_urls_dic = MODELS_URL
+            model_dir = self.model_dir
+
+        for model_name, model_url in models_urls_dic.items():
             if model_url.endswith(".pt"):
                 model_name += ".pt"
+                # Exception for face_yolov8n.pt
+                model_dir = self.model_dir
             else:
                 model_name += ".safetensors"
-            model_path = os.path.join(self.model_dir, model_name)
+            model_path = os.path.join(model_dir, model_name)
             if not os.path.exists(model_path):
                 download_model(model_path, model_url)
 
@@ -779,3 +821,4 @@ class Command:
         self.es = es
         self.change = change
         self.keep = keep
+

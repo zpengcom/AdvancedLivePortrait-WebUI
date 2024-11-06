@@ -22,6 +22,8 @@ class App:
     @staticmethod
     def create_parameters():
         return [
+            gr.Dropdown(label=_("Model Type"),
+                        choices=[item.value for item in ModelType], value=ModelType.HUMAN.value),
             gr.Slider(label=_("Rotate Pitch"), minimum=-20, maximum=20, step=0.5, value=0),
             gr.Slider(label=_("Rotate Yaw"), minimum=-20, maximum=20, step=0.5, value=0),
             gr.Slider(label=_("Rotate Roll"), minimum=-20, maximum=20, step=0.5, value=0),
