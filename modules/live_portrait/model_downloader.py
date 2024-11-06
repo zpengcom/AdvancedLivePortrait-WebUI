@@ -20,9 +20,9 @@ MODELS_ANIMAL_URL = {
     "warping_module": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/animal/warping_module.safetensors",
     "spade_generator": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/animal/spade_generator.safetensors",
     "stitching_retargeting_module": "https://huggingface.co/Kijai/LivePortrait_safetensors/resolve/main/animal/stitching_retargeting_module.safetensors",
-    "face_yolov8n": "https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt"
+    # Just animal detection model not the face, needs better model
+    "yolo_v5s_animal_det": "https://huggingface.co/degirum/yolo_v5s_animal_det_512x512_quant_n2x_cpu_1/resolve/main/yolo_v5s_animal_det_512x512_quant_n2x_cpu_1.n2x"
 }
-
 
 
 def download_model(
