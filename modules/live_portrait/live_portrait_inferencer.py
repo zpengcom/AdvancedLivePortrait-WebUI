@@ -129,7 +129,8 @@ class LivePortraitInferencer:
                 self.stitching_retargeting_module
             )
 
-        self.detect_model = YOLO(MODEL_PATHS["face_yolov8n"]).to(self.device)
+        det_model_name = "yolo_v5s_animal_det" if model_type == ModelType.ANIMAL else "face_yolov8n"
+        self.detect_model = YOLO(MODEL_PATHS[det_model_name]).to(self.device)
 
     def edit_expression(self,
                         model_type: str = ModelType.HUMAN.value,
@@ -375,8 +376,8 @@ class LivePortraitInferencer:
         for model_name, model_url in models_urls_dic.items():
             if model_url.endswith(".pt"):
                 model_name += ".pt"
-                # Exception for face_yolov8n.pt
-                model_dir = self.model_dir
+            elif model_url.endswith(".n2x"):
+                model_name += ".n2x"
             else:
                 model_name += ".safetensors"
             model_path = os.path.join(model_dir, model_name)
