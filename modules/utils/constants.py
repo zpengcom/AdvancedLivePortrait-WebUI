@@ -18,7 +18,7 @@ class SamplePart(Enum):
 REPO_MARKDOWN = """
 ## [AdvancedLivePortrait-WebUI](https://github.com/jhj0517/AdvancedLivePortrait-WebUI/tree/master)
 
-The space runs on the CPU, so it's slow. If you want faster inference, try running it locally using the link above. 
+The space runs on the CPU, so it's really slow. If you want faster inference, try running it locally using the link above. 
 """
 
 GRADIO_CSS = """
