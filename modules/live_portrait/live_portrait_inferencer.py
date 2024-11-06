@@ -1,8 +1,4 @@
 import logging
-import os
-import sys
-import numpy as np
-import torch
 import cv2
 import time
 import copy
@@ -15,7 +11,7 @@ from ultralytics.utils import LOGGER as ultralytics_logger
 from modules.utils.paths import *
 from modules.utils.image_helper import *
 from modules.live_portrait.model_downloader import *
-from modules.live_portrait_wrapper import LivePortraitWrapper
+from modules.live_portrait.live_portrait_wrapper import LivePortraitWrapper
 from modules.utils.camera import get_rotation_matrix
 from modules.utils.helper import load_yaml
 from modules.config.inference_config import InferenceConfig
@@ -24,7 +20,6 @@ from modules.live_portrait.warping_network import WarpingNetwork
 from modules.live_portrait.motion_extractor import MotionExtractor
 from modules.live_portrait.appearance_feature_extractor import AppearanceFeatureExtractor
 from modules.live_portrait.stitching_retargeting_network import StitchingRetargetingNetwork
-from collections import OrderedDict
 
 
 class LivePortraitInferencer:

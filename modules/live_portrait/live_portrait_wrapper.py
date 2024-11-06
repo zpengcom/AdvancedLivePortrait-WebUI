@@ -1,9 +1,10 @@
 import numpy as np
 import torch
 
-from .utils.helper import concat_feat
-from .utils.camera import headpose_pred_to_degree, get_rotation_matrix
-from .config.inference_config import InferenceConfig
+from modules.utils.helper import concat_feat
+from modules.utils.camera import headpose_pred_to_degree, get_rotation_matrix
+from modules.config.inference_config import InferenceConfig
+
 
 class LivePortraitWrapper(object):
 
