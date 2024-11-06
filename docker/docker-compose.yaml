@@ -1,12 +1,14 @@
 services:
   app:
-    build: .
+    build:
+      dockerfile: docker/Dockerfile
+      context: ..
     image: jhj0517/advancedliveportrait-webui:latest
 
     volumes:
       # Update paths to mount models and output paths to your custom paths like this, e.g:
-      # - C:/AdvancedLivePortrait-WebUI/custom-model-path:/AdvancedLivePortrait-WebUI/models
-      # - C:/AdvancedLivePortrait-WebUI/custom-output-path:/AdvancedLivePortrait-WebUI/outputs
+      # - C:/your-local-path/AdvancedLivePortrait-WebUI/models:/AdvancedLivePortrait-WebUI/models
+      # - C:/your-local-path/AdvancedLivePortrait-WebUI/outputs:/AdvancedLivePortrait-WebUI/outputs
       - /AdvancedLivePortrait-WebUI/models
       - /AdvancedLivePortrait-WebUI/outputs
 
