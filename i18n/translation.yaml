@@ -18,6 +18,11 @@ en: # English
   Sample Ratio: Sample Ratio
   Sample Parts: Sample Parts
   Crop Factor: Crop Factor
+  OnlyExpression: OnlyExpression
+  OnlyRotation: OnlyRotation
+  OnlyMouth: OnlyMouth
+  OnlyEyes: OnlyEyes
+  All: All
 
 ko: # Korean
   Language: 언어
@@ -35,10 +40,15 @@ ko: # Korean
   EEE: 이이이
   WOO: 우우우
   Smile: 미소
-  Source Ratio: 원본 비율
+  Source Ratio: 원본 반영 비율
   Sample Ratio: 샘플 비율
   Sample Parts: 샘플 파트
   Crop Factor: Crop Factor
+  OnlyExpression: 표정만
+  OnlyRotation: 회전만
+  OnlyMouth: 입만
+  OnlyEyes: 눈만
+  All: 전부
 
 ja: # Japanese
   Language: 言語
@@ -60,6 +70,11 @@ ja: # Japanese
   Sample Ratio: Sample Ratio
   Sample Parts: Sample Parts
   Crop Factor: Crop Factor
+  OnlyExpression: OnlyExpression
+  OnlyRotation: OnlyRotation
+  OnlyMouth: OnlyMouth
+  OnlyEyes: OnlyEyes
+  All: All
 
 es: # Spanish
   Language: Idioma
@@ -81,6 +96,11 @@ es: # Spanish
   Sample Ratio: Sample Ratio
   Sample Parts: Sample Parts
   Crop Factor: Crop Factor
+  OnlyExpression: OnlyExpression
+  OnlyRotation: OnlyRotation
+  OnlyMouth: OnlyMouth
+  OnlyEyes: OnlyEyes
+  All: All
 
 fr: # French
   Language: Langue
@@ -102,6 +122,11 @@ fr: # French
   Sample Ratio: Sample Ratio
   Sample Parts: Sample Parts
   Crop Factor: Crop Factor
+  OnlyExpression: OnlyExpression
+  OnlyRotation: OnlyRotation
+  OnlyMouth: OnlyMouth
+  OnlyEyes: OnlyEyes
+  All: All
 
 de: # German
   Language: Sprache
@@ -123,6 +148,11 @@ de: # German
   Sample Ratio: Sample Ratio
   Sample Parts: Sample Parts
   Crop Factor: Crop Factor
+  OnlyExpression: OnlyExpression
+  OnlyRotation: OnlyRotation
+  OnlyMouth: OnlyMouth
+  OnlyEyes: OnlyEyes
+  All: All
 
 zh: # Chinese
   Language: 语言
@@ -144,6 +174,11 @@ zh: # Chinese
   Sample Ratio: Sample Ratio
   Sample Parts: Sample Parts
   Crop Factor: Crop Factor
+  OnlyExpression: OnlyExpression
+  OnlyRotation: OnlyRotation
+  OnlyMouth: OnlyMouth
+  OnlyEyes: OnlyEyes
+  All: All
 
 uk: # Ukrainian
   Language: Мова
@@ -165,6 +200,11 @@ uk: # Ukrainian
   Sample Ratio: Sample Ratio
   Sample Parts: Sample Parts
   Crop Factor: Crop Factor
+  OnlyExpression: OnlyExpression
+  OnlyRotation: OnlyRotation
+  OnlyMouth: OnlyMouth
+  OnlyEyes: OnlyEyes
+  All: All
 
 ru: # Russian
   Language: Язык
@@ -186,6 +226,11 @@ ru: # Russian
   Sample Ratio: Sample Ratio
   Sample Parts: Sample Parts
   Crop Factor: Crop Factor
+  OnlyExpression: OnlyExpression
+  OnlyRotation: OnlyRotation
+  OnlyMouth: OnlyMouth
+  OnlyEyes: OnlyEyes
+  All: All
 
 tr: # Turkish
   Language: Dil
@@ -207,3 +252,8 @@ tr: # Turkish
   Sample Ratio: Sample Ratio
   Sample Parts: Sample Parts
   Crop Factor: Crop Factor
+  OnlyExpression: OnlyExpression
+  OnlyRotation: OnlyRotation
+  OnlyMouth: OnlyMouth
+  OnlyEyes: OnlyEyes
+  All: All
