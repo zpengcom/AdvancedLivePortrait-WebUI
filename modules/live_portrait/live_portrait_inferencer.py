@@ -119,7 +119,7 @@ class LivePortraitInferencer:
         )
         self.stitching_retargeting_module = {"stitching": self.stitching_retargeting_module}
 
-        if self.pipeline is None:
+        if self.pipeline is None or model_type != self.model_type:
             self.pipeline = LivePortraitWrapper(
                 InferenceConfig(),
                 self.appearance_feature_extractor,
