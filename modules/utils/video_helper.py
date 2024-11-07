@@ -7,8 +7,8 @@ from dataclasses import dataclass
 import re
 from pathlib import Path
 
-from modules.utils.constants import SOUND_FILE_EXT, VIDEO_FILE_EXT, IMAGE_FILE_EXT, TRANSPARENT_VIDEO_FILE_EXT
-from modules.utils.paths import TEMP_VIDEO_FRAMES_DIR, TEMP_VIDEO_OUT_FRAMES_DIR
+from modules.utils.constants import SOUND_FILE_EXT, VIDEO_FILE_EXT, IMAGE_FILE_EXT
+from modules.utils.paths import TEMP_VIDEO_FRAMES_DIR, TEMP_VIDEO_OUT_FRAMES_DIR, OUTPUTS_VIDEOS_DIR
 
 
 @dataclass
@@ -153,7 +153,7 @@ def create_video_from_frames(
         raise "frames_dir does not exist"
 
     if output_dir is None:
-        output_dir = TEMP_VIDEO_OUT_FRAMES_DIR
+        output_dir = OUTPUTS_VIDEOS_DIR
     os.makedirs(output_dir, exist_ok=True)
 
     frame_img_mime_type = ".png"
