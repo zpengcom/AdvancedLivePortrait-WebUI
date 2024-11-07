@@ -39,7 +39,7 @@ If you're using Windows, right-click the script and then click on ***Run with Po
 ```
 git clone https://github.com/jhj0517/AdvancedLivePortrait-WebUI.git
 ```
-2. Build the imade
+2. Build the image
 ```
 docker compose -f docker/docker-compose.yaml build
 ```
