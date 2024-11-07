@@ -7,6 +7,8 @@ MODELS_DIR = os.path.join(PROJECT_ROOT_DIR, "models")
 MODELS_ANIMAL_DIR = os.path.join(MODELS_DIR, "animal")
 OUTPUTS_DIR = os.path.join(PROJECT_ROOT_DIR, "outputs")
 TEMP_DIR = os.path.join(OUTPUTS_DIR, "temp")
+TEMP_VIDEO_FRAMES_DIR = os.path.join(TEMP_DIR, "video_frames")
+TEMP_VIDEO_OUT_FRAMES_DIR = os.path.join(TEMP_VIDEO_FRAMES_DIR, "output_video_frames")
 EXP_OUTPUT_DIR = os.path.join(OUTPUTS_DIR, "exp_data")
 MODEL_CONFIG = os.path.join(PROJECT_ROOT_DIR, "modules", "config", "models.yaml")
 MODEL_PATHS = {
@@ -50,7 +52,8 @@ def init_dirs():
         MODELS_ANIMAL_DIR,
         OUTPUTS_DIR,
         EXP_OUTPUT_DIR,
-        TEMP_DIR
+        TEMP_DIR,
+        TEMP_VIDEO_FRAMES_DIR
     ]:
         os.makedirs(dir_path, exist_ok=True)
 
