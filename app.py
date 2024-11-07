@@ -49,41 +49,63 @@ class App:
             with self.i18n:
                 gr.Markdown(REPO_MARKDOWN, elem_id="md_project")
 
-                with gr.Row():
-                    with gr.Column():
-                        img_ref = gr.Image(label=_("Reference Image"))
-                with gr.Row():
-                    btn_gen = gr.Button("GENERATE", visible=False)
-                with gr.Row(equal_height=True):
-                    with gr.Column(scale=9):
-                        img_out = gr.Image(label=_("Output Image"))
-                    with gr.Column(scale=1):
-                        expression_parameters = self.create_parameters()
-                        btn_openfolder = gr.Button('📂')
-                        with gr.Accordion("Opt in features", visible=False):
-                            img_sample = gr.Image()
-                            img_motion_link = gr.Image()
-                            tb_exp = gr.Textbox()
+                with gr.Tabs():
+                    with gr.TabItem(_("Expression Editing")):
+                        with gr.Row():
+                            with gr.Column():
+                                img_ref = gr.Image(label=_("Reference Image"))
+                        with gr.Row():
+                            btn_gen = gr.Button("GENERATE", visible=False)
+                        with gr.Row(equal_height=True):
+                            with gr.Column(scale=9):
+                                img_out = gr.Image(label=_("Output Image"))
+                            with gr.Column(scale=1):
+                                expression_parameters = self.create_parameters()
+                                btn_openfolder = gr.Button('📂')
+                                with gr.Accordion("Opt in features", visible=False):
+                                    img_sample = gr.Image()
+                                    img_motion_link = gr.Image()
+                                    tb_exp = gr.Textbox()
 
-                params = expression_parameters + [img_ref]
-                opt_in_features_params = [img_sample, img_motion_link, tb_exp]
+                        params = expression_parameters + [img_ref]
+                        opt_in_features_params = [img_sample, img_motion_link, tb_exp]
 
-                gr.on(
-                    triggers=[param.change for param in params],
-                    fn=self.inferencer.edit_expression,
-                    inputs=params + opt_in_features_params,
-                    outputs=img_out,
-                    show_progress="minimal",
-                    queue=True
-                )
+                        gr.on(
+                            triggers=[param.change for param in params],
+                            fn=self.inferencer.edit_expression,
+                            inputs=params + opt_in_features_params,
+                            outputs=img_out,
+                            show_progress="minimal",
+                            queue=True
+                        )
 
-                btn_openfolder.click(
-                    fn=lambda: self.open_folder(self.args.output_dir), inputs=None, outputs=None
-                )
+                        btn_openfolder.click(
+                            fn=lambda: self.open_folder(self.args.output_dir), inputs=None, outputs=None
+                        )
 
-                btn_gen.click(self.inferencer.edit_expression,
-                              inputs=params + opt_in_features_params,
-                              outputs=img_out)
+                        btn_gen.click(self.inferencer.edit_expression,
+                                      inputs=params + opt_in_features_params,
+                                      outputs=img_out)
+
+                    with gr.TabItem(_("Video Driven")):
+                        with gr.Row():
+                            img_ref = gr.Image(label=_("Reference Image"))
+                            vid_driven = gr.Video(label=_("Driven Video"))
+                            dd_model_type = gr.Dropdown(label=_("Model Type"), visible=False, interactive=False,
+                                                        choices=[item.value for item in ModelType],
+                                                        value=ModelType.HUMAN.value),
+                        with gr.Row():
+                            btn_gen = gr.Button(_("GENERATE"))
+                        with gr.Row(equal_height=True):
+                            with gr.Column(scale=9):
+                                vid_out = gr.Video(label=_("Output Video"), scale=9)
+                            with gr.Column(scale=1):
+                                btn_openfolder = gr.Button('📂')
+
+                        btn_gen.click(
+                            fn=self.inferencer.create_video,
+
+                        )
 
             gradio_launch_args = {
                 "inbrowser": self.args.inbrowser,
