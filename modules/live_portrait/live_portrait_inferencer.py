@@ -14,6 +14,7 @@ from typing import Union, List, Dict, Tuple
 
 from modules.utils.paths import *
 from modules.utils.image_helper import *
+from modules.utils.video_helper import *
 from modules.live_portrait.model_downloader import *
 from modules.live_portrait.live_portrait_wrapper import LivePortraitWrapper
 from modules.utils.camera import get_rotation_matrix
@@ -241,15 +242,21 @@ class LivePortraitInferencer:
             raise
 
     def create_video(self,
-                     retargeting_eyes: bool,
-                     retargeting_mouth: bool,
-                     tracking_src_vid: bool,
-                     animate_without_vid: bool,
-                     crop_factor: float,
+                     model_type: str = ModelType.HUMAN.value,
+                     retargeting_eyes: bool = True,
+                     retargeting_mouth: bool = True,
+                     tracking_src_vid: bool = True,
+                     animate_without_vid: bool = False,
+                     crop_factor: float = 1.5,
                      src_image_list: Optional[List[np.ndarray]] = None,
                      driving_images: Optional[List[np.ndarray]] = None,
                      progress: gr.Progress = gr.Progress()
                      ):
+        if self.pipeline is None or model_type != self.model_type:
+            self.load_models(
+                model_type=model_type
+            )
+
         src_length = 1
 
         if src_image_list is not None:
@@ -322,7 +329,14 @@ class LivePortraitInferencer:
             return None
 
         out_imgs = torch.cat([pil2tensor(img_rgb) for img_rgb in out_list])
-        return out_imgs
+        out_imgs = [tensor.permute(1, 2, 0).cpu().numpy() for tensor in out_imgs]
+        for img in out_imgs:
+            out_frame_path = get_auto_incremental_file_path(TEMP_VIDEO_OUT_FRAMES_DIR, "png")
+            save_image(img, out_frame_path)
+
+        video_path = create_video_from_frames(TEMP_VIDEO_OUT_FRAMES_DIR)
+
+        return video_path
 
     def download_if_no_models(self,
                               model_type: str = ModelType.HUMAN.value,
