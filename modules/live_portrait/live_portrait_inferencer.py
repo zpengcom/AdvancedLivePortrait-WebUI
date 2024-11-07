@@ -246,28 +246,21 @@ class LivePortraitInferencer:
                      tracking_src_vid: bool,
                      animate_without_vid: bool,
                      crop_factor: float,
-                     src_images: Optional[List[np.ndarray]] = None,
+                     src_image_list: Optional[List[np.ndarray]] = None,
                      driving_images: Optional[List[np.ndarray]] = None,
-                     motion_link: Optional[List] = None,
                      progress: gr.Progress = gr.Progress()
                      ):
         src_length = 1
 
-        if src_images is None:
-            if motion_link is not None:
-                self.psi_list = [motion_link[0]]
-            else:
-                return None, None
-
-        if src_images is not None:
-            src_length = len(src_images)
-            if id(src_images) != id(self.src_images) or self.crop_factor != crop_factor:
+        if src_image_list is not None:
+            src_length = len(src_image_list)
+            if id(src_image_list) != id(self.src_image_list) or self.crop_factor != crop_factor:
                 self.crop_factor = crop_factor
-                self.src_images = src_images
+                self.src_image_list = src_image_list
                 if 1 < src_length:
-                    self.psi_list = self.prepare_source(src_images, crop_factor, True, tracking_src_vid)
+                    self.psi_list = [self.prepare_source(src, crop_factor, True, tracking_src_vid) for src in src_image_list]
                 else:
-                    self.psi_list = [self.prepare_source(src_images, crop_factor)]
+                    self.psi_list = [self.prepare_source(src, crop_factor) for src in src_image_list]
 
         driving_length = 0
         if driving_images is not None:
