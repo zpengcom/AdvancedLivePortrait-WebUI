@@ -289,26 +289,6 @@ class LivePortraitInferencer:
 
             new_es = ExpressionSet(es=s_es)
 
-            if i < cmd_length:
-                cmd = cmd_list[cmd_idx]
-                if 0 < cmd.change:
-                    cmd.change -= 1
-                    c_i_es.add(cmd.es)
-                    c_i_es.sub(c_o_es)
-                elif 0 < cmd.keep:
-                    cmd.keep -= 1
-
-                new_es.add(c_i_es)
-
-                if cmd.change == 0 and cmd.keep == 0:
-                    cmd_idx += 1
-                    if cmd_idx < len(cmd_list):
-                        c_o_es = ExpressionSet(es=c_i_es)
-                        cmd = cmd_list[cmd_idx]
-                        c_o_es.div(cmd.change)
-            elif 0 < cmd_length:
-                new_es.add(c_i_es)
-
             if i < driving_length:
                 d_i_info = self.driving_values[i]
                 d_i_r = torch.Tensor([d_i_info['pitch'], d_i_info['yaw'], d_i_info['roll']])#.float().to(device="cuda:0")
