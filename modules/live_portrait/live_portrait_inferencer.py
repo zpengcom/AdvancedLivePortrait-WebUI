@@ -10,7 +10,7 @@ import gradio as gr
 from gradio_i18n import Translate, gettext as _
 from ultralytics.utils import LOGGER as ultralytics_logger
 from enum import Enum
-from typing import Union
+from typing import Union, List, Dict, Tuple
 
 from modules.utils.paths import *
 from modules.utils.image_helper import *
@@ -241,19 +241,16 @@ class LivePortraitInferencer:
             raise
 
     def create_video(self,
-                     retargeting_eyes,
-                     retargeting_mouth,
-                     turn_on,
-                     tracking_src_vid,
-                     animate_without_vid,
-                     command,
-                     crop_factor,
-                     src_images=None,
-                     driving_images=None,
-                     motion_link=None,
-                     progress=gr.Progress()):
-        if not turn_on:
-            return None, None
+                     retargeting_eyes: bool,
+                     retargeting_mouth: bool,
+                     tracking_src_vid: bool,
+                     animate_without_vid: bool,
+                     crop_factor: float,
+                     src_images: Optional[List[np.ndarray]] = None,
+                     driving_images: Optional[List[np.ndarray]] = None,
+                     motion_link: Optional[List] = None,
+                     progress: gr.Progress = gr.Progress()
+                     ):
         src_length = 1
 
         if src_images is None:
@@ -272,11 +269,6 @@ class LivePortraitInferencer:
                 else:
                     self.psi_list = [self.prepare_source(src_images, crop_factor)]
 
-        cmd_list, cmd_length = self.parsing_command(command, motion_link)
-        if cmd_list is None:
-            return None,None
-        cmd_idx = 0
-
         driving_length = 0
         if driving_images is not None:
             if id(driving_images) != id(self.driving_images):
@@ -287,7 +279,7 @@ class LivePortraitInferencer:
         total_length = max(driving_length, src_length)
 
         if animate_without_vid:
-            total_length = max(total_length, cmd_length)
+            total_length = total_length
 
         c_i_es = ExpressionSet()
         c_o_es = ExpressionSet()
