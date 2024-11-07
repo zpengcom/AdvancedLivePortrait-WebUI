@@ -6,6 +6,7 @@ PROJECT_ROOT_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), ".."
 MODELS_DIR = os.path.join(PROJECT_ROOT_DIR, "models")
 MODELS_ANIMAL_DIR = os.path.join(MODELS_DIR, "animal")
 OUTPUTS_DIR = os.path.join(PROJECT_ROOT_DIR, "outputs")
+OUTPUTS_VIDEOS_DIR = os.path.join(OUTPUTS_DIR, "videos")
 TEMP_DIR = os.path.join(OUTPUTS_DIR, "temp")
 TEMP_VIDEO_FRAMES_DIR = os.path.join(TEMP_DIR, "video_frames")
 TEMP_VIDEO_OUT_FRAMES_DIR = os.path.join(TEMP_VIDEO_FRAMES_DIR, "output_video_frames")
@@ -53,7 +54,9 @@ def init_dirs():
         OUTPUTS_DIR,
         EXP_OUTPUT_DIR,
         TEMP_DIR,
-        TEMP_VIDEO_FRAMES_DIR
+        TEMP_VIDEO_FRAMES_DIR,
+        TEMP_VIDEO_OUT_FRAMES_DIR,
+        OUTPUTS_VIDEOS_DIR
     ]:
         os.makedirs(dir_path, exist_ok=True)
 
