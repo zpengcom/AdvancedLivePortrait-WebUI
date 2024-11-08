@@ -161,31 +161,31 @@ de: # German
   Value above 5 may appear distorted: Value above 5 may appear distorted
 
 zh: # Chinese
-  Language: 语言
-  Reference Image: Reference Image
-  Output Image: Output Image
-  Rotate Pitch: Rotate Pitch
-  Rotate Yaw: Rotate Yaw
-  Rotate Roll: Rotate Roll
-  Blink: Blink
-  Eyebrow: Eyebrow
-  Wink: Wink
-  Pupil X: Pupil X
-  Pupil Y: Pupil Y
-  AAA: AAA
-  EEE: EEE
-  WOO: WOO
-  Smile: Smile
-  Source Ratio: Source Ratio
-  Sample Ratio: Sample Ratio
-  Sample Parts: Sample Parts
-  Crop Factor: Crop Factor
-  OnlyExpression: OnlyExpression
-  OnlyRotation: OnlyRotation
-  OnlyMouth: OnlyMouth
-  OnlyEyes: OnlyEyes
-  All: All
-  Value above 5 may appear distorted: Value above 5 may appear distorted
+  Language: 简体中文
+  Reference Image: 参考图片
+  Output Image: 输出图片
+  Rotate Pitch: Y轴旋转（上下）
+  Rotate Yaw: Z轴旋转（左右）
+  Rotate Roll: X轴旋转（左右摆头）
+  Blink: 眼睛睁开大小
+  Eyebrow: 眉毛
+  Wink: 眨眼
+  Pupil X: 眼球左右朝向
+  Pupil Y: 眼球上下朝向
+  AAA: 基于发音：啊
+  EEE: 基于发音：咦
+  WOO: 基于发音：喔
+  Smile: 微笑
+  Source Ratio: 原始比例
+  Sample Ratio: 采样比例
+  Sample Parts: 采样部分
+  Crop Factor: 裁剪因子
+  OnlyExpression: 仅表情
+  OnlyRotation: 仅旋转
+  OnlyMouth: 仅嘴巴
+  OnlyEyes: 仅眼睛
+  All: 全部
+  Value above 5 may appear distorted: 超过 5 处修改可能会出现图像失真。
 
 uk: # Ukrainian
   Language: Мова
